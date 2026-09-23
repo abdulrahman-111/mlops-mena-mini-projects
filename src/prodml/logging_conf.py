@@ -7,6 +7,9 @@ from functools import wraps
 from time import perf_counter
 from typing import Any, Callable, TypeVar
 
+# ContextVar stores a value within the active execution context. This
+# allows concurrently handled requests to maintain different correlation IDs.
+
 correlation_id_var: ContextVar[str] = ContextVar("correlation_id", default="-")
 
 

@@ -99,6 +99,6 @@ class DurationPredictor:
 
         model_input = self._vetorizer.transform(model_features)
 
-        predcitions = self._model.predcit(model_input)
+        predcitions = self._model.predict(model_input)
 
         return [float(value) for value in predcitions]
