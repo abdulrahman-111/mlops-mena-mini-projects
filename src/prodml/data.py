@@ -32,7 +32,7 @@ def add_duration(df: pd.DataFrame) -> pd.DataFrame:
 
     result["lpep_dropoff_datetime"] = pd.to_datetime(result["lpep_dropoff_datetime"])
 
-    result["duration"] = (df.lpep_dropoff_datetime - df.lpep_pickup_datetime).dt.total_seconds() / 60
+    result["duration"] = (result.lpep_dropoff_datetime - result.lpep_pickup_datetime).dt.total_seconds() / 60
 
     return result
 

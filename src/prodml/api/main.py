@@ -181,7 +181,7 @@ def predict(payload: PredictionRequest, request: Request) -> PredictionResponse:
     )
 
     return PredictionResponse(
-        predcition=round(prediction, 3),
+        prediction=round(prediction, 3),
         model_version=model_version,
         correlation_id=get_correlation_id(),
         latency_ms=round(latency_ms, 3),

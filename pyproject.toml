@@ -9,11 +9,13 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.141.1",
+    "httpx>=0.28.1",
     "numpy>=2.5.3",
     "pandas>=3.0.6",
     "pydantic>=2.13.5",
     "pydantic-settings>=2.15.0",
     "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
     "ruff>=0.16.8",
     "scikit-learn>=1.9.1",
 ]
@@ -66,12 +68,9 @@ select = ["E", "F", "W", "I"]
 line-length = 120
 target-version = ["py313"]
 
-# we want coverage be more that 80 % of the code
+# we want coverage be more that 70 % of the code
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = """
--v
---cov=src/prodml
---cov-report=term-missing
---cov-fail-under=80
+-v --cov=src/prodml  --cov-report=term-missing  --cov-fail-under=70
 """

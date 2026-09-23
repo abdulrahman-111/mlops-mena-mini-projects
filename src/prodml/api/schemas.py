@@ -22,7 +22,7 @@ class PredictionRequest(BaseModel):
 
 
 class PredictionResponse(BaseModel):
-    predcition: float = Field(ge=0)
+    prediction: float = Field(ge=0)
     model_version: str
     correlation_id: str
     latency_ms: float = Field(ge=0)
