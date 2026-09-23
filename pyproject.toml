@@ -30,9 +30,14 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "ipykernel>=7.3.0",
+    "onnx>=1.23.0",
+    "onnxruntime>=1.30.0",
     "pre-commit>=4.6.2",
     "pyarrow>=25.0.1",
+    "skl2onnx>=1.20.0",
 ]
+
+
 
 # Installed product name: mlops-mena-mini-projects
 # Inside the product:      prodml
