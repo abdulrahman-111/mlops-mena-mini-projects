@@ -1,1 +1,14 @@
 # mlops-mena-mini-projects
+
+
+pip install -e ".[dev]" # install
+
+ruff check src tests && black --check src tests # lint
+
+pytest -v --cov=src/prodml --cov-report=term-missing # test
+
+
+python -m prodml.train # train
+
+
+uvicorn prodml.api.main:app --reload --port 8000 # serv

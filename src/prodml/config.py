@@ -1,13 +1,8 @@
 from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-
-
-
-
-
- 
 class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
@@ -15,13 +10,13 @@ class Settings(BaseSettings):
         env_file=".env",
         extra="ignore",
     )
-
-    project_root: Path = Path("../")
+    # Absolute path to the project root
+    project_root: Path = Path(__file__).resolve().parents[2]
     data_dir: Path = project_root / "data/raw/"
-    data_path: Path = data_dir  / "green_tripdata_2026-01.parquet"
+    data_path: Path = data_dir / "green_tripdata_2026-01.parquet"
 
-    model_dir:Path = project_root / "models/"
-    model_path:Path = model_dir / "model.pkl"
+    model_dir: Path = project_root / "models/"
+    model_path: Path = model_dir / "model.pkl"
     onnx_path: Path = model_dir / "onnx.pkl"
 
     model_version: str = "0.1.0"

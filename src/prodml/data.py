@@ -1,11 +1,6 @@
-from unittest import result
-
-from prodml.config import RANDOM_SEED
-
-import pandas as pd 
-from prodml.config import get_data_path
 from pathlib import Path
 
+import pandas as pd
 from sklearn.model_selection import train_test_split
 
 REQUIRED_COLUMNS = {
@@ -16,39 +11,30 @@ REQUIRED_COLUMNS = {
     "trip_distance",
 }
 
-DATA_PATH =  get_data_path()
 
-
-def load_data(path: Path)-> pd.DataFrame :
+def load_data(path: Path) -> pd.DataFrame:
     """Load NYC green taxi data from a Parquet file."""
-    df = pd.read_parquet(path=DATA_PATH)
+    df = pd.read_parquet(path=path)
     missing = REQUIRED_COLUMNS - set(df.columns)
 
-    if missing: 
-        raise ValueError(
-            f"Dataset is missing required columns: {sorted(missing)}"
-            )
+    if missing:
+        raise ValueError(f"Dataset is missing required columns: {sorted(missing)}")
 
-    return df 
+    return df
 
 
-def add_duration(df :pd.DataFrame )-> pd.DataFrame:
+def add_duration(df: pd.DataFrame) -> pd.DataFrame:
     """Create trip duration in minutes."""
 
     result = df.copy()
 
-    result["lpep_pickup_datetime"] = pd.to_datetime(
-        result["lpep_pickup_datetime"]
-    )
+    result["lpep_pickup_datetime"] = pd.to_datetime(result["lpep_pickup_datetime"])
 
-    result["lpep_dropoff_datetime"] = pd.to_datetime(
-        result["lpep_dropoff_datetime"]
-    )
+    result["lpep_dropoff_datetime"] = pd.to_datetime(result["lpep_dropoff_datetime"])
 
-    result['duration'] = (df.lpep_dropoff_datetime - df.lpep_pickup_datetime).dt.total_seconds()/ 60 
+    result["duration"] = (df.lpep_dropoff_datetime - df.lpep_pickup_datetime).dt.total_seconds() / 60
 
     return result
-
 
 
 def clean_trips(
@@ -77,7 +63,6 @@ def clean_trips(
     return result
 
 
-
 def split_trips(
     df: pd.DataFrame,
     test_size: float,
@@ -92,6 +77,3 @@ def split_trips(
     )
 
     return train_df, validation_df
-
-
-

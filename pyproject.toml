@@ -8,10 +8,13 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "fastapi[standard]>=0.141.1",
     "numpy>=2.5.3",
     "pandas>=3.0.6",
     "pydantic>=2.13.5",
     "pydantic-settings>=2.15.0",
+    "pytest>=9.1.1",
+    "ruff>=0.16.8",
     "scikit-learn>=1.9.1",
 ]
 
@@ -27,6 +30,7 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "ipykernel>=7.3.0",
+    "pre-commit>=4.6.2",
     "pyarrow>=25.0.1",
 ]
 
@@ -42,3 +46,27 @@ dev = [
 # name from project name
 [tool.uv.build-backend]
 module-name = "prodml"
+
+
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.black]
+line-length = 120
+target-version = ["py313"]
+
+# we want coverage be more that 80 % of the code
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = """
+-v
+--cov=src/prodml
+--cov-report=term-missing
+--cov-fail-under=80
+"""
