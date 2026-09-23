@@ -1,0 +1,44 @@
+[project]
+name = "mlops-mena-mini-projects"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Abdulrahman Gomaa", email = "abdulrahman.gomaa.h05@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "scikit-learn>=1.9.1",
+]
+
+[project.scripts]
+prodml-train = "prodml.train:main"
+prodml-export = "prodml.export:main"
+
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+    "pyarrow>=25.0.1",
+]
+
+# Installed product name: mlops-mena-mini-projects
+# Inside the product:      prodml
+
+# So uv installs the project: mlops-mena-mini-projects
+# but that project contains the Python package: prodml
+
+# uv pip show mlops-mena-mini-projects
+
+# this will make uv install package prodml in venv as it have diff
+# name from project name
+[tool.uv.build-backend]
+module-name = "prodml"
