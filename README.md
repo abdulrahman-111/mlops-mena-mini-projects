@@ -1,14 +1,27 @@
-# mlops-mena-mini-projects
+# ProdML — Ride Duration Service
 
+A production-oriented machine-learning service for predicting
+NYC green taxi trip duration.
 
-pip install -e ".[dev]" # install
+The project converts an exploratory notebook into:
 
-ruff check src tests && black --check src tests # lint
+- an installable Python package
+- a tested FastAPI application
+- structured JSON logging
+- Pickle and ONNX model artifacts
+- a Dockerized production service
 
-pytest -v --cov=src/prodml --cov-report=term-missing # test
+## Quickstart
 
+Development
+pip install -e ".[dev]"
 
-python -m prodml.train # train
+Train:
+python -m prodml.train
 
+Test:
+pytest
 
-uvicorn prodml.api.main:app --reload --port 8000 # serv
+Run locally:
+
+uvicorn prodml.api.main:app --reload --port 8000
