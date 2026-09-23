@@ -51,6 +51,7 @@ class DurationPredictor:
         model = loaded_artifact["model"]
         vectorizer = loaded_artifact["vectorizer"]
         metadata = dict(loaded_artifact["metadata"])
+
         metadata["artifact_hash"] = file_sha256(path)
 
         # return new instance
@@ -68,7 +69,7 @@ class DurationPredictor:
     def metadata(self) -> dict[str, Any]:
         return self._metadata
 
-    @timed  ## my decorator will log the time of request
+    @timed  ## my decorator will log the time of request , and return latency
     def predict_one(self, features: dict[str:Any]) -> float:
 
         model_features = make_prediction_features(
@@ -81,7 +82,7 @@ class DurationPredictor:
 
         model_input = self._vetorizer.transform([model_features])
 
-        prediction = self._model.predcit(model_input)[0]
+        prediction = self._model.predict(model_input)[0]
         return float(prediction)
 
     def predict_batch(self, items: list[dict[str:Any]]) -> dict[float]:

@@ -86,7 +86,13 @@ F = TypeVar("F", bound=Callable[..., Any])
 
 
 def timed(func: F) -> F:
-    """Log execution time for a function."""
+    """
+    Log execution time for a function.
+    Model inference latency time
+    Our decorator measures feature preparation,
+    vectorization and prediction inside predict_one().
+
+    """
 
     logger = get_logger("prodml.timing")
 
@@ -95,22 +101,20 @@ def timed(func: F) -> F:
 
         start = perf_counter()
 
-        try:
-            return func(*args, **kwargs)
+        result = func(*args, **kwargs)
 
-        finally:
+        latency_ms = (perf_counter() - start) * 1000
 
-            latency_ms = (perf_counter() - start) * 1000
-
-            logger.info(
-                "function.timed",
-                extra={
-                    "function": func.__qualname__,
-                    "latency_ms": round(
-                        latency_ms,
-                        3,
-                    ),
-                },
-            )
+        logger.info(
+            "function.timed",
+            extra={
+                "function": func.__qualname__,
+                "latency_ms": round(
+                    latency_ms,
+                    3,
+                ),
+            },
+        )
+        return result, latency_ms
 
     return wrapper  # type: ignore[return-value]
