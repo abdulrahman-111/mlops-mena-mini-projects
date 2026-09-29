@@ -1,0 +1,76 @@
+[project]
+name = "mlops-mena-mini-projects"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Abdulrahman Gomaa", email = "abdulrahman.gomaa.h05@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.141.1",
+    "httpx>=0.28.1",
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.8",
+    "scikit-learn>=1.9.1",
+]
+
+[project.scripts]
+prodml-train = "prodml.train:main"
+prodml-export = "prodml.export:main"
+
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+    "onnx>=1.23.0",
+    "onnxruntime>=1.30.0",
+    "pre-commit>=4.6.2",
+    "pyarrow>=25.0.1",
+    "skl2onnx>=1.20.0",
+]
+
+
+
+# Installed product name: mlops-mena-mini-projects
+# Inside the product:      prodml
+
+# So uv installs the project: mlops-mena-mini-projects
+# but that project contains the Python package: prodml
+
+# uv pip show mlops-mena-mini-projects
+
+# this will make uv install package prodml in venv as it have diff
+# name from project name
+[tool.uv.build-backend]
+module-name = "prodml"
+
+
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.black]
+line-length = 120
+target-version = ["py313"]
+
+# we want coverage be more that 70 % of the code
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = """
+-v --cov=src/prodml  --cov-report=term-missing  --cov-fail-under=70
+"""
